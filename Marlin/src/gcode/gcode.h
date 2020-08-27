@@ -403,6 +403,9 @@ private:
       const bool fast_move=false
     #endif
   );
+  static void G84();
+  static void G83();
+
 
   TERN_(ARC_SUPPORT, static void G2_G3(const bool clockwise));
 
@@ -633,6 +636,7 @@ private:
     TERN_(GRADIENT_MIX, static void M166());
   #endif
 
+  static void M183();
   static void M200();
   static void M201();
 

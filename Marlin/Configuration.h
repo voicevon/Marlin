@@ -1123,12 +1123,13 @@
 #define Y_BED_SIZE 200
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
-#define Z_MIN_POS 0
-#define X_MAX_POS X_BED_SIZE
+#define X_MIN_POS -180
+#define Y_MIN_POS -87.5
+#define Z_MIN_POS -90.1
+#define X_MAX_POS 176   //X_BED_SIZE - 180
 #define Y_MAX_POS Y_BED_SIZE
-#define Z_MAX_POS 200
+#define Z_MAX_POS 157
+#define E1_MIN_POS -96.0   // Joint 5 home position's angle in degree
 
 /**
  * Software Endstops
