@@ -317,16 +317,20 @@ void GcodeSuite::G28() {
         : (parser.seenval('R') ? parser.value_linear_units() : Z_HOMING_HEIGHT);
 
     if (z_homing_height && (doX || doY || (ENABLED(Z_SAFE_HOMING) && doZ))) {
+      // SERIAL_ECHO_MSG("33333333333333333333");
       // Raise Z before homing any other axes and z is not already high enough (never lower z)
       if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPAIR("Raise Z (before homing) by ", z_homing_height);
-      do_z_clearance(z_homing_height, true, DISABLED(UNKNOWN_Z_NO_RAISE));
-    }
+      // SERIAL_ECHO_MSG("444444444444444444444444444");
+      // do_z_clearance(z_homing_height, true, DISABLED(UNKNOWN_Z_NO_RAISE));
+      // SERIAL_ECHO_MSG("55555555555555555555555555555");
+    } 
 
     #if ENABLED(QUICK_HOME)
 
       if (doX && doY) quick_home_xy();
 
     #endif
+  SERIAL_ECHO_MSG("99999999999999999999999999999999");
 
     // Home Y (before X)
     if (ENABLED(HOME_Y_BEFORE_X) && (doY || (ENABLED(CODEPENDENT_XY_HOMING) && doX)))

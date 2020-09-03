@@ -68,7 +68,7 @@
   #ifdef IS_RAMPS_13
     #define SERVO0_PIN                         7
   #else
-    #define SERVO0_PIN                         11 //11
+    #define SERVO0_PIN                         53 //11
   #endif
 #endif
 #ifndef SERVO1_PIN
@@ -89,12 +89,12 @@
     #define X_MIN_PIN                          3
   #endif
   #ifndef X_MAX_PIN
-    #define X_MAX_PIN                          2
+    #define X_MAX_PIN                          68
   #endif
 #endif
 #ifndef Y_STOP_PIN
   #ifndef Y_MIN_PIN
-    #define Y_MIN_PIN                         14
+    #define Y_MIN_PIN                         49
   #endif
   #ifndef Y_MAX_PIN
     #define Y_MAX_PIN                         15
@@ -119,16 +119,16 @@
 //
 // Steppers
 //
-#define X_STEP_PIN                            54
-#define X_DIR_PIN                             55
-#define X_ENABLE_PIN                          38
+#define X_STEP_PIN                            27
+#define X_DIR_PIN                             29
+#define X_ENABLE_PIN                          50
 #ifndef X_CS_PIN
   #define X_CS_PIN                            53
 #endif
 
-#define Y_STEP_PIN                            60
-#define Y_DIR_PIN                             61
-#define Y_ENABLE_PIN                          56
+#define Y_STEP_PIN                            23
+#define Y_DIR_PIN                             25
+#define Y_ENABLE_PIN                          52
 #ifndef Y_CS_PIN
   #define Y_CS_PIN                            49
 #endif
