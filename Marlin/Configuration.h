@@ -767,7 +767,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION   { 1000, 1000, 100, 10000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1118,19 +1118,21 @@
 
 // @section machine
 
-// The size of the print bed
-#define X_BED_SIZE 200
-#define Y_BED_SIZE 200
+
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS -180
-#define Y_MIN_POS -87.5
+#define X_MIN_POS 60   //home -120
+#define X_MAX_POS 300   //home +120 ,home at 180
+#define Y_MIN_POS -120
+#define Y_MAX_POS 120  //home at 0
+
 #define Z_MIN_POS -90.1
-#define X_MAX_POS 176   //X_BED_SIZE - 180
-#define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 157
 #define E1_MIN_POS -96.0   // Joint 5 home position's angle in degree
 
+// The size of the print bed
+#define X_BED_SIZE 240
+#define Y_BED_SIZE 240
 /**
  * Software Endstops
  *
@@ -1369,9 +1371,9 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
-//#define MANUAL_Z_HOME_POS 0
+#define MANUAL_X_HOME_POS 180
+#define MANUAL_Y_HOME_POS 0
+#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
