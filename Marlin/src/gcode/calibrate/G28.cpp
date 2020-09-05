@@ -330,7 +330,7 @@ void GcodeSuite::G28() {
       if (doX && doY) quick_home_xy();
 
     #endif
-  SERIAL_ECHO_MSG("99999999999999999999999999999999");
+  // SERIAL_ECHO_MSG("99999999999999999999999999999999");
 
     // Home Y (before X)
     if (ENABLED(HOME_Y_BEFORE_X) && (doY || (ENABLED(CODEPENDENT_XY_HOMING) && doX)))

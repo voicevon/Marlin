@@ -16,10 +16,12 @@ void GcodeSuite::M183() {
         if (a == 1){
             digitalWrite(PIN_BRIDGE_A,LOW);
             digitalWrite(PIN_BRIDGE_B,HIGH);
+            //SERIAL_ECHO_MSG("M183 S1 pickup");
         }
         else if (a == 2){
             digitalWrite(PIN_BRIDGE_A,HIGH);
             digitalWrite(PIN_BRIDGE_B,LOW);
+            //SERIAL_ECHO_MSG("M183 S2 place down");
         }
         else{
             digitalWrite(PIN_BRIDGE_A,HIGH);
