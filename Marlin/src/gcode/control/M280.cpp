@@ -26,12 +26,17 @@
 
 #include "../gcode.h"
 #include "../../module/servo.h"
+#include "../../module/planner.h"
 
 /**
  * M280: Get or set servo position. P<index> [S<angle>]
  */
+
 void GcodeSuite::M280() {
   if (!parser.seen('P')) return;
+
+  planner.synchronize();
+
   const int servo_index = parser.value_int();
   if (WITHIN(servo_index, 0, NUM_SERVOS - 1)) {
     if (parser.seen('S')) {
