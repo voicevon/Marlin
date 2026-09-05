@@ -285,6 +285,7 @@ void Motion::report_position() {
 void Motion::report_position_projected() {
   report_logical_position(position);
   stepper.report_a_position(planner.position);
+  TERN_(IS_SCARA, scara_report_positions());
 }
 
 #if HAS_HOMING_CURRENT

@@ -367,8 +367,8 @@ void GcodeSuite::process_parsed_command(bool no_ok/*=false*/) {
         case 5: G5(); break;                                      // G5: Cubic B_spline
       #endif
 
-      #if ENABLED(DIRECT_STEPPING)
-        case 6: G6(); break;                                      // G6: Direct Stepper Move
+      #if ENABLED(DIRECT_STEPPING) || IS_SCARA
+        case 6: G6(); break;                                      // G6: Direct Stepper / SCARA Joint Move
       #endif
 
       #if ENABLED(FWRETRACT)

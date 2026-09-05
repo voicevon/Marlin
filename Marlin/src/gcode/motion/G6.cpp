@@ -63,3 +63,4 @@ void GcodeSuite::G6() {
 }
 
 #endif // DIRECT_STEPPING
+

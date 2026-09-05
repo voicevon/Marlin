@@ -542,7 +542,7 @@ private:
     static void G5();
   #endif
 
-  #if ENABLED(DIRECT_STEPPING)
+  #if ENABLED(DIRECT_STEPPING) || IS_SCARA
     static void G6();
   #endif
 
