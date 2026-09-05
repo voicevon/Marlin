@@ -3081,7 +3081,13 @@ bool Planner::buffer_line(const xyze_pos_t &cart, const feedRate_t fr_mm_s
 
     #endif // POLAR && FEEDRATE_SCALING
 
-    TERN_(HAS_EXTRUDERS, motion.delta.e = machine.e);
+    #if ENABLED(SCARA_R_WORLD_DECOUPLING)
+      // machine.e 为当前微线段的时间线性插值世界朝向角 R_world (deg)
+      // 减去大臂角 (delta.a) 和小臂角 (delta.b)，输出电机相对物理角
+      motion.delta.e = machine.e - (motion.delta.a + motion.delta.b) + (SCARA_R_WORLD_OFFSET);
+    #else
+      TERN_(HAS_EXTRUDERS, motion.delta.e = machine.e);
+    #endif
     if (buffer_segment(motion.delta OPTARG(HAS_DIST_MM_ARG, cart_dist_mm), feedrate, extruder, ph)) {
       position_cart = cart;
       return true;
@@ -3208,7 +3214,13 @@ void Planner::set_position_mm(const xyze_pos_t &xyze) {
   #if IS_KINEMATIC
     position_cart = xyze;
     inverse_kinematics(machine);
-    TERN_(HAS_EXTRUDERS, motion.delta.e = machine.e);
+    #if ENABLED(SCARA_R_WORLD_DECOUPLING)
+      // machine.e 为世界朝向角 R_world (deg)，经逆解得到 delta.a 与 delta.b 后，
+      // 同步折算为电机相对物理角，杜绝 G28/G92 导致步进电机计数坐标突变
+      motion.delta.e = machine.e - (motion.delta.a + motion.delta.b) + (SCARA_R_WORLD_OFFSET);
+    #else
+      TERN_(HAS_EXTRUDERS, motion.delta.e = machine.e);
+    #endif
     set_machine_position_mm(motion.delta);
   #else
     set_machine_position_mm(machine);

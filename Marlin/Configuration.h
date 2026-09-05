@@ -1095,7 +1095,7 @@
 #define SCARA
 #if ENABLED(SCARA)
   // If movement is choppy try lowering this value
-  #define DEFAULT_SEGMENTS_PER_SECOND 200
+  #define DEFAULT_SEGMENTS_PER_SECOND 40
 
   // Length of inner and outer support arms. Measure arm lengths precisely.
   #define SCARA_LINKAGE_1    300    // (mm)
@@ -1126,6 +1126,10 @@
 
   // Enable M360-M364 to calibrate SCARA angles
   #define SCARA_CALIBRATION
+
+  // 启用 SCARA 末端 R 轴 (E0 步进电机) 世界坐标系绝对姿态高频动态解耦
+  #define SCARA_R_WORLD_DECOUPLING
+  #define SCARA_R_WORLD_OFFSET 0.0f  // 机械零位安装角度偏置 (deg)
 
 #endif // SCARA
 
@@ -1364,7 +1368,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 1000, 2500, 50, 300 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 500, 50, 300 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1377,11 +1381,11 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 1000 }
+#define DEFAULT_MAX_ACCELERATION      { 16000, 16000, 100, 3000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 32000, 32000, 200, 20000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -1392,9 +1396,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1000   // X, Y, Z and E acceleration for moves
-#define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   1000   // X, Y, Z acceleration for travel moves
+#define DEFAULT_ACCELERATION          8000   // X, Y, Z and E acceleration for moves (再提速1倍，原4000)
+#define DEFAULT_RETRACT_ACCELERATION  1500   // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   8000   // X, Y, Z acceleration for travel moves (再提速1倍，原4000)
 
 /**
  * Default Jerk limits (mm/s)
@@ -1406,8 +1410,8 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 10.0
-  #define DEFAULT_YJERK 10.0
+  #define DEFAULT_XJERK 30.0
+  #define DEFAULT_YJERK 30.0
   #define DEFAULT_ZJERK  0.3
   #define DEFAULT_EJERK  5.0
   //#define DEFAULT_IJERK  0.3
@@ -3797,10 +3801,10 @@
 #define SERVO_DELAY { 300, 300, 300 }
 
 // SCARA 芦笋夹爪与升降舵机参数宏定义
-#define GRIPPER1_OPEN_ANGLE    0   // Servo 1 (头端 - D11) 打开角度（°）
-#define GRIPPER1_CLOSE_ANGLE  90   // Servo 1 (头端 - D11) 闭合角度（°）
-#define GRIPPER2_OPEN_ANGLE    0   // Servo 2 (尾端 - D12) 打开角度（°）
-#define GRIPPER2_CLOSE_ANGLE  90   // Servo 2 (尾端 - D12) 闭合角度（°）
+#define GRIPPER1_OPEN_ANGLE   30   // Servo 1 (头端 - D11) 打开角度（°）- 实测整定 S30 打开
+#define GRIPPER1_CLOSE_ANGLE   0   // Servo 1 (头端 - D11) 闭合角度（°）- 实测整定 S0 闭合/抓紧
+#define GRIPPER2_OPEN_ANGLE   30   // Servo 2 (尾端 - D12) 打开角度（°）- 实测整定 S30 打开
+#define GRIPPER2_CLOSE_ANGLE   0   // Servo 2 (尾端 - D12) 闭合角度（°）- 实测整定 S0 闭合/抓紧
 #define Z_SERVO_ANGLE_MIN      0   // Servo 0 (Z 轴升降 - A11/D65) 最低点对应舵机角度（°）
 #define Z_SERVO_ANGLE_MAX    270   // Servo 0 (Z 轴升降 - A11/D65) 最高点对应舵机角度（°）
 #define Z_MM_MAX             100   // Z 坐标物理行程上限（mm）
