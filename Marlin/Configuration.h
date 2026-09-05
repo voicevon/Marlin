@@ -68,7 +68,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #define MOTHERBOARD BOARD_MKS_BASE_16
 #endif
 
 // @section serial
@@ -94,7 +94,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 
 //#define BAUD_RATE_GCODE     // Enable G-code M575 to set the baud rate
 
@@ -581,7 +581,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 998
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -589,7 +589,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_BED 0
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 #define TEMP_SENSOR_COOLER 0
@@ -937,14 +937,14 @@
  *
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
-#define PREVENT_COLD_EXTRUSION
+//#define PREVENT_COLD_EXTRUSION
 #define EXTRUDE_MINTEMP 170
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
-#define PREVENT_LENGTHY_EXTRUDE
+//#define PREVENT_LENGTHY_EXTRUDE
 #define EXTRUDE_MAXLENGTH 200
 
 //===========================================================================
@@ -1092,19 +1092,19 @@
  *   https://www.thingiverse.com/thing:1241491
  */
 
-//#define SCARA
+#define SCARA
 #if ENABLED(SCARA)
   // If movement is choppy try lowering this value
   #define DEFAULT_SEGMENTS_PER_SECOND 200
 
   // Length of inner and outer support arms. Measure arm lengths precisely.
-  #define SCARA_LINKAGE_1    135    // (mm)
-  #define SCARA_LINKAGE_2    135    // (mm)
+  #define SCARA_LINKAGE_1    300    // (mm)
+  #define SCARA_LINKAGE_2    300    // (mm)
 
   // SCARA tower offset (position of shoulder axis relative to bed zero position)
   // This needs to be reasonably accurate as it defines the printbed position in the SCARA space.
   #define SCARA_OFFSET_X       0    // (mm)
-  #define SCARA_OFFSET_Y    -150    // (mm)
+  #define SCARA_OFFSET_Y       0    // (mm)
 
   // Radius of unreachable area near shoulder axis
   #define MIDDLE_DEAD_ZONE_R   0    // (mm)
@@ -1117,15 +1117,15 @@
   // 1.0 if distal arm retains its angle relative to cartesian X axis (e.g. Morgan and MPSCARA)
   // A two-stage reduction with an intermediate pulley on the shoulder axis has crosstalk =
   //   intermediate_pulley_teeth/elbow_pulley_teeth (first reduction stage does not affect crosstalk)
-  #define SCARA_CROSSTALK_FACTOR (40.0/60.0)
+  #define SCARA_CROSSTALK_FACTOR 0.0
 
   // Shoulder and elbow angles when in home position. If left undefined, cartesian home is used and
   // angles are calculated by inverse kinematics (note: M665 home offsets are still angles)
-  #define SCARA_HOME_THETA   -40
-  #define SCARA_HOME_PSI     160
+  #define SCARA_HOME_THETA    90
+  #define SCARA_HOME_PSI       0
 
   // Enable M360-M364 to calibrate SCARA angles
-  //#define SCARA_CALIBRATION
+  #define SCARA_CALIBRATION
 
 #endif // SCARA
 
@@ -1352,7 +1352,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 56.8889, 37.3333, 100.0, 24.8889 }
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1364,7 +1364,7 @@
  * Override with M203
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 200, 200, 50, 200 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -1377,7 +1377,7 @@
  * Override with M201
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 500 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1392,9 +1392,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          500    // X, Y, Z and E acceleration for moves
+#define DEFAULT_RETRACT_ACCELERATION  500    // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   500    // X, Y, Z acceleration for travel moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -1404,7 +1404,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-//#define CLASSIC_JERK
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
@@ -2434,7 +2434,7 @@
 #endif
 
 // Homing speeds (linear=mm/min, rotational=°/min)
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { 200, 200, 200 }
 
 // Edit homing feedrates with M210 and MarlinUI menu items
 //#define EDITABLE_HOMING_FEEDRATE
@@ -3789,12 +3789,21 @@
  * Set this manually if there are extra servos needing manual control.
  * Set to 0 to turn off servo support.
  */
-//#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
+#define NUM_SERVOS 3 // Note: Servo index starts with 0 for M280-M282 commands
 
 // (ms) Delay before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
-#define SERVO_DELAY { 300 }
+#define SERVO_DELAY { 300, 300, 300 }
+
+// SCARA 芦笋夹爪与升降舵机参数宏定义
+#define GRIPPER1_OPEN_ANGLE    0   // Servo 1 (头端 - D11) 打开角度（°）
+#define GRIPPER1_CLOSE_ANGLE  90   // Servo 1 (头端 - D11) 闭合角度（°）
+#define GRIPPER2_OPEN_ANGLE    0   // Servo 2 (尾端 - D12) 打开角度（°）
+#define GRIPPER2_CLOSE_ANGLE  90   // Servo 2 (尾端 - D12) 闭合角度（°）
+#define Z_SERVO_ANGLE_MIN      0   // Servo 0 (Z 轴升降 - A11/D65) 最低点对应舵机角度（°）
+#define Z_SERVO_ANGLE_MAX    270   // Servo 0 (Z 轴升降 - A11/D65) 最高点对应舵机角度（°）
+#define Z_MM_MAX             100   // Z 坐标物理行程上限（mm）
 
 // Only power servos during movement, otherwise leave off to prevent jitter
 //#define DEACTIVATE_SERVOS_AFTER_MOVE

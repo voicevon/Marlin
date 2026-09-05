@@ -37,14 +37,13 @@
 //
 // Servos
 //
-#define SERVO1_PIN                            12
+#define SERVO0_PIN                            65   // A11 - Z 轴升降舵机
+#define SERVO1_PIN                            11   // D11 - 抓取夹爪 1 (头端)
+#define SERVO2_PIN                            12   // D12 - 抓取夹爪 2 (尾端)
 
 //
 // Omitted RAMPS pins
 //
-#ifndef SERVO2_PIN
-  #define SERVO2_PIN                          -1
-#endif
 #ifndef SERVO3_PIN
   #define SERVO3_PIN                          -1
 #endif
